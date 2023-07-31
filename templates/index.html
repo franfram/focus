@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sighting Device</title>
+    <style>
+        body {
+            background-color: black;
+            color: white; /* This sets the text color to white */
+        }
+        #sight-container {
+            text-align: center;
+        }
+        #timer {
+            font-size: 20px;
+        }
+        button {
+            background-color: white; /* This sets the button background to white */
+            color: black; /* This sets the button text color to black */
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: gray; /* This sets the button hover background to gray */
+        }
+    </style>
+</head>
+<body>
+    <div id="sight-container">
+        <img src="{{ url_for('static', filename='sight.png') }}" alt="Sight">
+        <div id="timer">Time: <span id="seconds">120</span></div>
+        <button onclick="startTimer()">Start</button>
+        <button onclick="stopTimer()">Stop</button>
+        <button onclick="resetTimer()">Reset</button>
+    </div>
+
+    <script>
+        var timer;
+        var seconds = 120;
+
+        function startTimer() {
+            stopTimer(); // Stop any existing timer
+            timer = setInterval(function () {
+                seconds -= 1;
+                document.getElementById('seconds').textContent = seconds;
+                if (seconds <= 0) {
+                    stopTimer();
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+        }
+
+        function resetTimer() {
+            stopTimer();
+            seconds = 120;
+            document.getElementById('seconds').textContent = seconds;
+        }
+    </script>
+</body>
+</html>
